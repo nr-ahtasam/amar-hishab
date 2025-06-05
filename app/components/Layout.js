@@ -8,13 +8,19 @@ const quickLinks = [
   { label: "Stock", color: "bg-green-500" },
   { label: "Today's Summary", color: "bg-blue-500" },
   { label: "Return Orders", color: "bg-yellow-500" },
-  { label: "POS", color: "bg-emerald-500" },
+  { label: "POS", color: "bg-emerald-500", url: "/pos", newWindow: true },
   { label: "Wholesale", color: "bg-lime-500" },
   { label: "Order", color: "bg-purple-500" },
 ];
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleQuickLinkClick = (link) => {
+    if (link.newWindow) {
+      window.open(link.url, "_blank");
+    }
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -33,6 +39,7 @@ export default function Layout({ children }) {
             {quickLinks.map((link) => (
               <button
                 key={link.label}
+                onClick={() => handleQuickLinkClick(link)}
                 className={`text-white text-xs font-semibold px-3 py-1 rounded shadow ${link.color}`}
               >
                 {link.label}

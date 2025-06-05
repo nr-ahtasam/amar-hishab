@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import Layout from "./components/Layout";
+import { ThemeProvider } from "./context/ThemeContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Layout>{children}</Layout> {/* Wrap with sidebar + topbar layout */}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

@@ -1,4 +1,3 @@
-// app/dashboard/page.js
 "use client";
 
 import {
@@ -10,12 +9,13 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useTheme } from "../../context/ThemeContext";
 
 const cards = [
-  { title: "Customer Due", value: "829239.30", color: "bg-green-500" },
-  { title: "Supplier Due", value: "213035.00", color: "bg-purple-600" },
-  { title: "Total Products", value: "879", color: "bg-blue-500" },
-  { title: "Today Sales", value: "0", color: "bg-yellow-600" },
+  { title: "Customer Due", value: "829239.30", color: "success" },
+  { title: "Supplier Due", value: "213035.00", color: "secondary" },
+  { title: "Total Products", value: "879", color: "primary" },
+  { title: "Today Sales", value: "0", color: "warning" },
 ];
 
 const dailySalesData = Array.from({ length: 24 }, (_, i) => ({
@@ -38,6 +38,8 @@ const yearlySalesData = [
 ];
 
 export default function DashboardPage() {
+  const { theme } = useTheme();
+
   return (
     <div className="space-y-6">
       {/* Cards */}
@@ -45,7 +47,8 @@ export default function DashboardPage() {
         {cards.map((card) => (
           <div
             key={card.title}
-            className={`rounded shadow text-white p-4 flex items-center justify-between ${card.color}`}
+            className="rounded shadow text-white p-4 flex items-center justify-between"
+            style={{ backgroundColor: theme[card.color] }}
           >
             <div>
               <div className="text-xl font-semibold">{card.value}</div>
@@ -69,7 +72,7 @@ export default function DashboardPage() {
               <Line
                 type="monotone"
                 dataKey="Sales"
-                stroke="#3b82f6"
+                stroke={theme.primary}
                 strokeWidth={2}
               />
             </LineChart>
@@ -87,7 +90,7 @@ export default function DashboardPage() {
               <Line
                 type="monotone"
                 dataKey="Report"
-                stroke="#3b82f6"
+                stroke={theme.primary}
                 strokeWidth={2}
               />
             </LineChart>
@@ -107,7 +110,7 @@ export default function DashboardPage() {
               <Line
                 type="monotone"
                 dataKey="Report"
-                stroke="#3b82f6"
+                stroke={theme.primary}
                 strokeWidth={2}
               />
             </LineChart>
@@ -118,13 +121,13 @@ export default function DashboardPage() {
           <div className="mb-2 font-semibold">Customers Due Amount</div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-purple-900 text-white">
+              <tr style={{ backgroundColor: theme.secondary, color: "white" }}>
                 <th className="px-2 py-1">SL</th>
                 <th className="px-2 py-1 text-left">Customer Name</th>
                 <th className="px-2 py-1 text-right">Amount</th>
               </tr>
             </thead>
-            <tbody className="bg-green-50">
+            <tbody style={{ backgroundColor: theme.success + "20" }}>
               {[
                 ["Nayeem rahman", 251100],
                 ["Tamim", 241143.87],
